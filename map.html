@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Where to Test</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGL2i5mwzwE52JJLVz9dQDCXfZUGiLnVg&libraries=localContext&v=beta&callback=initMap"></script>
-  </head>
-  <body>
-    <script src="script.js"></script>
-	  <div id="map" style="height: 400px; width = 400px"></div>
-  </body>
+	 <head>
+		<title>Where to Test</title>
+		<meta charset="UTF-8">
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGL2i5mwzwE52JJLVz9dQDCXfZUGiLnVg&callback=initMap&libraries=&v=weekly"
+			defer
+		></script>
+		<style type="text/css">
+			/* Set the size of the div element that contains the map */
+			#map {
+				height: 400px;
+				/* The height is 400 pixels */
+				width: 100%;
+				/* The width is the width of the web page */
+			}
+		</style>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<h3>Where to Test Demo</h3>
+		<!-- The div element for the map -->
+		<div id="map"></div>
+			
+		Indian Tribe: <select name="tribe" id="tribe">
+			<option value="" selected="selected">Select tribe</option>
+		</select>
+		<br><br>
+		Reservation or Tribal Land: <select name="land" id="land">
+			<option value="" selected="selected">Please select tribe first</option>
+		</select>
+		<br><br>
+		<button onclick="changeMapCenter()">Submit</button>
+	</body>
 </html>
+
+
