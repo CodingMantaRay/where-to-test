@@ -38,8 +38,6 @@ function initMap() {
     zoom: 8,
     center: mapCenter,
   });
-  // Create an array of alphabetical characters used to label the markers.
-  const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   // Add some markers to the map.
   // Note: The code uses the JavaScript Array.prototype.map() method to
   // create an array of markers based on a given "locations" array.
@@ -47,7 +45,7 @@ function initMap() {
   const markers = testingLocations.map((testingLocation, i) => {
     return new google.maps.Marker({
       position: testingLocation,
-      label: labels[i % labels.length],
+      label: testingLocationLabels[i],
 	  map: map,
     });
   });
@@ -66,6 +64,50 @@ function changeMapCenter() {
 	}
 	catch (InvalidValueError) {}
 }
+
+const testingLocationLabels = [
+  "Lee's Marketplace Smithfield",
+  "North Cache Valley Instacare",
+  "TestUtah Site Logan,",
+  "Bear River Valley Clinic",
+  "Ridley's Pharmacy #1151",
+  "TestUtah Site Brigham City",
+   
+  // Near Goshute Reservation
+  "White Sage Delta Clinic",
+  "Milford Valley Memorial Hospital",
+  "Fillmore Clinic",
+  "Tooele Instacare",
+  
+  // Near Navajo Nation and Ute Mountain Reservation
+  "Blue Mountain Hospital",
+  "San Juan County Hospital",
+  "Wayne County Community Health Center - Kazan Memorial Clinic",
+  "Wayne County Community Health Center - Bicknell",
+  "Moab Regional Hospital",
+  
+  // Near Paiute (UT) Reservation
+  "Cedar City Instacare",
+  "Family Healthcare - 3 Amigos Parking Lot",
+  "400 E Campus",
+  "TestUtah Site St. George",
+  
+  // Near Skull Valley Reservation
+  "Tooele Instacare",
+  "South Jordan Health Center",
+  "Ridley's Pharmacy #1165",
+  "Granger Medical - Riverton",
+  "Southridge Instacare",
+  "CopperView Medical Center",
+
+  // Near Uintah and Ouray Indian Reservation
+  "TestUtah Site Roosevelt",
+  "Uintah Basin Medical Center - ER Entrance",
+  "A&W Pharmacy",
+  "UBMC Clinic - Duchesne",
+  "Uintah Basin Healthcare - Vernal Urgent Care",
+  "Ashley Regional Medical Center"
+]
 
 const testingLocations = [
    // Each location has a latitude and a longitude
