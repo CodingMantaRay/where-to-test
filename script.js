@@ -1,10 +1,41 @@
+// Values for the dropdown menus
+var tribeObject = {
+	"Confederated Tribes of the Goshute Reservation": ["Goshute Reservation"],
+	"Navajo Nation": ["Navajo Nation"],
+	"Northwestern Band of the Shoshone Nation": ["Land near Washakie, Utah"],
+	"Paiute Indian Tribe of Utah": ["Paiute (UT) Reservation"],
+	"Skull Valley Band of Goshute Indians of Utah": ["Skull Valley Indian Reservation"],
+	"Ute Indian Tribe of the Uintah & Ouray Reservation": ["Uintah and Ouray Indian Reservation"],
+	"Ute Mountain Ute Tribe": ["Ute Mountain Ute Indian Reservation"]
+}
+
+// Function to change the values in the dropdown menus
+window.onload = function() {
+	var tribeSel = document.getElementById("tribe");
+	var landSel = document.getElementById("land");
+	for (var x in tribeObject) {
+		tribeSel.options[tribeSel.options.length] = new Option(x, x);
+	}
+	tribeSel.onchange = function() {
+		//display correct values
+		console.log(tribeSel.value);
+		console.log(this.value);
+		var y = tribeObject[tribeSel.value];
+		for (var i = 0; i < y.length; i++) {
+			landSel.options[landSel.options.length] = new Option(y[i], y[i]);
+		}
+	}
+}
+
+window.map = undefined; // Google map
+
 // This function is called when the webpage first loads
 function initMap() {
   // Create an initial center location
-  mapCenter = tribeLocations[0];
+  mapCenter = tribeLocations["Confederated Tribes of the Goshute Reservation"];
   // Create a new map object
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 10,
+  window.map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 8,
     center: mapCenter,
   });
   // Create an array of alphabetical characters used to label the markers.
@@ -20,7 +51,20 @@ function initMap() {
 	  map: map,
     });
   });
-  
+}
+
+// When the "Submit" button is clicked, this function changes the map.
+function changeMapCenter() {
+	console.log("Center func ran");
+	// Gets selected tribe
+	tribe = document.getElementById("tribe").value
+	try {
+		// Create a new center location based on selected tribe
+		mapCenter = tribeLocations[tribe];
+		// Pan to new center
+		window.map.panTo(mapCenter);
+	}
+	catch (InvalidValueError) {}
 }
 
 const testingLocations = [
@@ -71,20 +115,19 @@ const testingLocations = [
   { lat: 40.4580156, lng: -109.5309702}, // Ashley Regional Medical Center
 ];
 
-const tribeLocations = [
-  { lat: 41.9440909, lng: -112.2171823 }, // Washakie, Utah  (where the Shoshone Indians own land)
-  { lat: 39.852785, lng: -114.042560 }, // Goshute Reservation (Goshute Reservation, Callao, Nevada)
-  { lat: 37.085774, lng: -110.053038 }, // Navajo Nation (the part of it in Utah)
+const tribeLocations = {
+	"Confederated Tribes of the Goshute Reservation": { lat: 39.852785, lng: -114.042560 }, // Goshute Reservation (Goshute Reservation, Callao, Nevada)
+	"Navajo Nation": { lat: 37.085774, lng: -110.053038 }, // Navajo Nation (the part of it in Utah)
+	"Northwestern Band of the Shoshone Nation": { lat: 41.9440909, lng: -112.2171823 }, // Washakie, Utah  (where the Shoshone Indians own land)
 	
-  { lat: 37.170914, lng: -113.779443 }, // Paiute (UT) Reservation
-  //Paiute Bands' Community Centers
-  { lat: 37.6851052, lng: -113.0577987 }, // Cedar Community Building (440 North Paiute Drive, Cedar City, UT 84721)
-  { lat: 38.8022, lng: -112.437731 }, // Kanosh Community Building (Kanosh, UT 84637 United States)
-  { lat: 38.7680657, lng: -112.0837225 }, // Koosharem Community Building ( Richfield, UT 84701 United States )
-  { lat: 37.1712263,lng: -113.6914057 }, // Shivwits Band Community Building ( Ivins, UT 84738 United States )
-  // Couldn't find a community building for the Indian Peaks Band.
+	"Paiute Indian Tribe of Utah": { lat: 37.170914, lng: -113.779443 }, // Paiute (UT) Reservation
+	"Cedar Band of Paiutes": { lat: 37.6851052, lng: -113.0577987 }, // Cedar Community Building (440 North Paiute Drive, Cedar City, UT 84721)
+	"Kanosh Band of Paiutes": { lat: 38.8022, lng: -112.437731 }, // Kanosh Community Building (Kanosh, UT 84637 United States)
+	"Koosharem Band of Paiutes": { lat: 38.7680657, lng: -112.0837225 }, // Koosharem Community Building ( Richfield, UT 84701 United States )
+	"Shivwits Band of Paiutes": { lat: 37.1712263,lng: -113.6914057 }, // Shivwits Band Community Building ( Ivins, UT 84738 United States )
+	// Couldn't find a community building for the Indian Peaks Band.
 	
-  { lat: 40.385226, lng: -112.730020 }, // Skull Valley Reservation
-  { lat: 40.155762, lng: -109.953254 }, // Uintah and Ouray Indian Reservation
-  { lat: 37.113496, lng: -109.043598 }, // Ute Mountain Reservation (which is totally in Colorado)
-];
+	"Skull Valley Band of Goshute Indians of Utah": { lat: 40.385226, lng: -112.730020 }, // Skull Valley Reservation
+	"Ute Indian Tribe of the Uintah & Ouray Reservation": { lat: 40.155762, lng: -109.953254 }, // Uintah and Ouray Indian Reservation
+	"Ute Mountain Ute Tribe": { lat: 37.113496, lng: -109.043598 }, // Ute Mountain Reservation (which is mostly in Colorado)
+};
